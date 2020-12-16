@@ -5,19 +5,21 @@ cabal-version: 1.12
 -- see: https://github.com/sol/hpack
 
 name:           alchemy
-version:        0.1.0.0
+version:        0.1.0
+synopsis:       Common alchemy game
 description:    Please see the README on GitHub at <https://github.com/ceigh/alchemy#readme>
+category:       Games
 homepage:       https://github.com/ceigh/alchemy#readme
 bug-reports:    https://github.com/ceigh/alchemy/issues
 author:         Artjom Löbsack
 maintainer:     me@ceigh.com
 copyright:      2020 Artjom Löbsack
-license:        BSD3
+license:        MIT
 license-file:   LICENSE
 build-type:     Simple
 extra-source-files:
-    README.md
-    ChangeLog.md
+    README
+    CHANGELOG
 
 source-repository head
   type: git
@@ -32,6 +34,7 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , brick >=0.52.1 && <1
   default-language: Haskell2010
 
 executable alchemy-exe
@@ -44,6 +47,7 @@ executable alchemy-exe
   build-depends:
       alchemy
     , base >=4.7 && <5
+    , brick >=0.52.1 && <1
   default-language: Haskell2010
 
 test-suite alchemy-test
@@ -57,4 +61,5 @@ test-suite alchemy-test
   build-depends:
       alchemy
     , base >=4.7 && <5
+    , brick >=0.52.1 && <1
   default-language: Haskell2010

@@ -1,26 +1,27 @@
 name:                alchemy
-version:             0.1.0.0
+version:             0.1.0
 github:              "ceigh/alchemy"
-license:             BSD3
+license:             MIT
 author:              "Artjom Löbsack"
 maintainer:          "me@ceigh.com"
 copyright:           "2020 Artjom Löbsack"
 
 extra-source-files:
-- README.md
-- ChangeLog.md
+- README
+- CHANGELOG
 
 # Metadata used when publishing your package
-# synopsis:            Short description of your package
-# category:            Web
+synopsis:            Common alchemy game
+category:            Games
 
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
-# common to point users to the README.md file.
+# common to point users to the README file.
 description:         Please see the README on GitHub at <https://github.com/ceigh/alchemy#readme>
 
 dependencies:
 - base >= 4.7 && < 5
+- brick >= 0.52.1 && < 1
 
 library:
   source-dirs: src
