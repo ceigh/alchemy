@@ -22,6 +22,7 @@ description:         Please see the README on GitHub at <https://github.com/ceig
 dependencies:
 - base >= 4.7 && < 5
 - brick >= 0.52.1 && < 1
+- microlens-th >= 0.4.3.6 && < 1
 
 library:
   source-dirs: src
