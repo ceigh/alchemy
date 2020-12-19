@@ -1,36 +1,33 @@
-name:                alchemy
-version:             0.1.0
-github:              "ceigh/alchemy"
-license:             MIT
-author:              "Artjom Löbsack"
-maintainer:          "me@ceigh.com"
-copyright:           "2020 Artjom Löbsack"
+name: alchemy
+version: 0.1.0
+github: "ceigh/alchemy"
+license: MIT
+author: "Artjom Löbsack"
+maintainer: "me@ceigh.com"
+copyright: "2020 Artjom Löbsack"
 
+synopsis: Common alchemy game
+category: Games
 extra-source-files:
 - README
 - CHANGELOG
 
-# Metadata used when publishing your package
-synopsis:            Common alchemy game
-category:            Games
-
-# To avoid duplicated efforts in documentation and dealing with the
-# complications of embedding Haddock markup inside cabal files, it is
-# common to point users to the README file.
-description:         Please see the README on GitHub at <https://github.com/ceigh/alchemy#readme>
+description: See README at https://github.com/ceigh/alchemy
 
 dependencies:
 - base >= 4.7 && < 5
 - brick >= 0.52.1 && < 1
 - microlens-th >= 0.4.3.6 && < 1
+- yaml >= 0.11.5.0 && < 1
+- bytestring >= 0.10.10.1 && < 1
 
 library:
   source-dirs: src
 
 executables:
   alchemy-exe:
-    main:                Main.hs
-    source-dirs:         src
+    main: Main.hs
+    source-dirs: app
     ghc-options:
     - -threaded
     - -rtsopts

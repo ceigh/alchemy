@@ -1,6 +1,15 @@
-{-# LANGUAGE TemplateHaskell #-}
-module Alchemy where
+{-# LANGUAGE TemplateHaskell, OverloadedStrings #-}
 
+module Alchemy
+  ( Element (Element)
+  , getElementsFromFile
+  ) where
+
+import Control.Applicative
+import Data.Maybe (fromJust)
+
+import qualified Data.ByteString.Char8 as BS
+import Data.Yaml
 import Lens.Micro.TH (makeLenses)
 
 -- types
@@ -8,6 +17,7 @@ import Lens.Micro.TH (makeLenses)
 data Element = Element
   { _name :: String
   , _desc :: String
+  , _root :: Maybe (String, String)
   } deriving Show
 
 data HistoryRecord = HistoryRecord
@@ -24,6 +34,22 @@ data Game = Game
   , _history               :: [HistoryRecord]
   } deriving Show
 
+-- lenses
+
 makeLenses ''Element
 makeLenses ''HistoryRecord
 makeLenses ''Game
+
+-- functions
+
+-- parse yaml file for all available elements
+instance FromJSON Element where
+  parseJSON (Object v) = Element <$> v .: "name"
+                                 <*> v .: "desc"
+                                 <*> v .:? "root"
+  parseJSON _ = error "Can't parse Elements from file"
+
+getElementsFromFile = do
+  rawYaml <- BS.readFile "app/elements.yaml"
+  let result = Data.Yaml.decodeThrow rawYaml :: Maybe [Element]
+  return $ fromJust result

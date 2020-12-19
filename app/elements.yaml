@@ -1,0 +1,15 @@
+- name: air
+  desc: just air
+- name: earth
+  desc: just earth
+- name: fire
+  desc: just fire
+- name: water
+  desc: just water
+
+- name: dust
+  desc: just dust
+  root: [air, earth]
+- name: lava
+  desc: just lava
+  root: [earth, fire]

@@ -1,13 +1,13 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.34.2.
+-- This file has been generated from package.yaml by hpack version 0.34.3.
 --
 -- see: https://github.com/sol/hpack
 
 name:           alchemy
 version:        0.1.0
 synopsis:       Common alchemy game
-description:    Please see the README on GitHub at <https://github.com/ceigh/alchemy#readme>
+description:    See README at https://github.com/ceigh/alchemy
 category:       Games
 homepage:       https://github.com/ceigh/alchemy#readme
 bug-reports:    https://github.com/ceigh/alchemy/issues
@@ -28,8 +28,6 @@ source-repository head
 library
   exposed-modules:
       Alchemy
-      Main
-      UI
   other-modules:
       Paths_alchemy
   hs-source-dirs:
@@ -37,21 +35,23 @@ library
   build-depends:
       base >=4.7 && <5
     , brick >=0.52.1 && <1
+    , bytestring >=0.10.10.1 && <1
     , microlens-th >=0.4.3.6 && <1
+    , yaml >=0.11.5.0 && <1
   default-language: Haskell2010
 
 executable alchemy-exe
   main-is: Main.hs
   other-modules:
-      Alchemy
-      UI
       Paths_alchemy
   hs-source-dirs:
-      src
+      app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       alchemy
     , base >=4.7 && <5
     , brick >=0.52.1 && <1
+    , bytestring >=0.10.10.1 && <1
     , microlens-th >=0.4.3.6 && <1
+    , yaml >=0.11.5.0 && <1
   default-language: Haskell2010
