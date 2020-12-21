@@ -2,7 +2,7 @@ module Main where
 
 -- import Brick
 
-import Alchemy (getElementsFromFile)
+import Alchemy (initGame)
 
 {-
 ui :: Widget ()
@@ -12,5 +12,5 @@ ui = str getElementsFromFile
 main :: IO ()
 -- main = simpleMain ui
 main = do
-  elements <- getElementsFromFile
-  print elements
+  game <- initGame
+  print game

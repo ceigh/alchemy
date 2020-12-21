@@ -1,9 +1,7 @@
 {-# LANGUAGE TemplateHaskell, OverloadedStrings #-}
 
 module Alchemy
-  ( Element (Element)
-  , getElementsFromFile
-  ) where
+  ( initGame ) where
 
 import Control.Applicative
 import Data.Maybe (fromJust)
@@ -30,7 +28,7 @@ data Game = Game
   , _allElements           :: [Element]
   , _fstColElements        :: [Element]
   , _sndColElements        :: [Element]
-  , _fstColSelectedElement :: Element
+  , _fstColSelectedElement :: Maybe Element
   , _history               :: [HistoryRecord]
   } deriving Show
 
@@ -44,12 +42,19 @@ makeLenses ''Game
 
 -- parse yaml file for all available elements
 instance FromJSON Element where
-  parseJSON (Object v) = Element <$> v .: "name"
-                                 <*> v .: "desc"
+  parseJSON (Object v) = Element <$> v  .: "name"
+                                 <*> v  .: "desc"
                                  <*> v .:? "root"
   parseJSON _ = error "Can't parse Elements from file"
 
+getElementsFromFile :: IO [Element]
 getElementsFromFile = do
   rawYaml <- BS.readFile "app/elements.yaml"
   let result = Data.Yaml.decodeThrow rawYaml :: Maybe [Element]
   return $ fromJust result
+
+-- get init game state
+initGame :: IO Game
+initGame = do
+  elements <- getElementsFromFile
+  return $ Game [] elements [] [] Nothing []
