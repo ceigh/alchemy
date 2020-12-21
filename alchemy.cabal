@@ -36,6 +36,7 @@ library
       base >=4.7 && <5
     , brick >=0.52.1 && <1
     , bytestring >=0.10.10.1 && <1
+    , microlens >=0.4.11.2 && <1
     , microlens-th >=0.4.3.6 && <1
     , yaml >=0.11.5.0 && <1
   default-language: Haskell2010
@@ -52,6 +53,7 @@ executable alchemy-exe
     , base >=4.7 && <5
     , brick >=0.52.1 && <1
     , bytestring >=0.10.10.1 && <1
+    , microlens >=0.4.11.2 && <1
     , microlens-th >=0.4.3.6 && <1
     , yaml >=0.11.5.0 && <1
   default-language: Haskell2010
