@@ -3,26 +3,27 @@
 module Alchemy
   ( initGame
   , addElementToFstCol
+  , selectElement
+  -- , Element (..)
   ) where
 
-import Control.Applicative
-import Data.Maybe (fromJust)
-
 import qualified Data.ByteString.Char8 as BS
+import Data.Maybe (fromJust)
 import Data.Yaml
-import Lens.Micro ((&), (.~), (^.))
+import Lens.Micro ((&), (.~), (^.), (?~))
 import Lens.Micro.TH (makeLenses)
 
 -- types
+type Root = (String, String)
 
 data Element = Element
   { _name :: String
   , _desc :: String
-  , _root :: Maybe (String, String)
+  , _root :: Maybe Root
   } deriving Show
 
 data HistoryRecord = HistoryRecord
-  { _from :: Element
+  { _from :: Root
   , _to   :: Element
   } deriving Show
 
@@ -65,3 +66,7 @@ initGame = do
 -- add to desk on col 1
 addElementToFstCol :: Element -> Game -> Game
 addElementToFstCol e g = g & fstColElements .~ (g ^. fstColElements ++ [e])
+
+-- select first element to merge
+selectElement :: Element -> Game -> Game
+selectElement e g = g & fstColSelectedElement ?~ e

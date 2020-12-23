@@ -14,3 +14,5 @@ main :: IO ()
 main = do
   g <- initGame
   print g
+  -- print $ addElementToFstCol (Element "a" "b" (Just ("a", "b"))) g
+  -- print $ selectElement (Element "a" "b" (Just ("a", "b"))) g
