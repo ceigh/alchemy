@@ -21,6 +21,7 @@ dependencies:
 - microlens-th >= 0.4.3.6 && < 1
 - yaml >= 0.11.5.0 && < 1
 - bytestring >= 0.10.10.1 && < 1
+- pretty-simple >= 3.2.3.0 && < 5
 
 library:
   source-dirs: src

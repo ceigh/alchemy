@@ -7,7 +7,7 @@ module Alchemy
   ) where
 
 import qualified Data.ByteString.Char8 as BS
-import Data.Maybe (fromJust)
+import Data.Maybe (fromJust, isNothing)
 import Data.Yaml
 import Lens.Micro ((&), (.~), (^.), (?~))
 import Lens.Micro.TH (makeLenses)
@@ -59,7 +59,8 @@ getElementsFromFile = do
 initGame :: IO Game
 initGame = do
   elements <- getElementsFromFile
-  return $ Game elements [] [] Nothing []
+  let baseElements = filter (\e -> isNothing $ e ^. root) elements
+  return $ Game elements baseElements baseElements Nothing []
 
 -- add to desk on col 1
 addElementToDesk :: Int -> Game -> Game

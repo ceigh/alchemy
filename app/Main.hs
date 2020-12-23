@@ -1,6 +1,7 @@
 module Main where
 
 -- import Brick
+import Text.Pretty.Simple (pPrint)
 
 import Alchemy
 
@@ -15,4 +16,4 @@ main = do
   g <- initGame
   let g'  = addElementToDesk 0 g
       g'' = selectElement    0 g'
-  print g''
+  pPrint g''
