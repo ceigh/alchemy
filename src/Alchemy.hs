@@ -4,6 +4,7 @@ module Alchemy
   ( initGame
   , addElementToDesk
   , selectElement
+  , combineElements
   ) where
 
 import qualified Data.ByteString.Char8 as BS
@@ -19,7 +20,7 @@ data Element = Element
   { _name :: String
   , _desc :: String
   , _root :: Maybe Root
-  } deriving Show
+  } deriving (Eq, Show)
 
 data HistoryRecord = HistoryRecord
   { _from :: Root
@@ -73,3 +74,18 @@ selectElement :: Int -> Game -> Game
 selectElement i g =
   let element = (g ^. deskElements) !! i
   in g & selectedElement ?~ element
+
+-- try combine two elements on desk
+combineElements :: Int -> Int -> Game -> Game
+combineElements i1 i2 g =
+  let all       = g ^. allElements
+      desk      = g ^. deskElements
+      e1        = desk !! i1
+      e2        = desk !! i2
+      newRoot   = Just (e1 ^. name, e2 ^. name)
+      matched   = filter (\e -> newRoot == (e ^. root)) all
+      newDesk   = if null matched
+                  then desk
+                  else filter (\e -> e `notElem` [e1, e2]) desk
+  in g & openedElements .~ (g ^. openedElements ++ matched)
+       & deskElements   .~ newDesk ++ matched

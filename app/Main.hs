@@ -14,6 +14,9 @@ main :: IO ()
 -- main = simpleMain ui
 main = do
   g <- initGame
-  let g'  = addElementToDesk 0 g
-      g'' = selectElement    0 g'
-  pPrint g''
+  let g'     = addElementToDesk 0 g  -- test adding
+      g''    = addElementToDesk 1 g
+      g'''   = combineElements 0 1 g -- test success combine
+      g''''  = combineElements 0 1 g -- test fail combine
+      g''''' = selectElement 2 g'''' -- test selection
+  pPrint g'''''
