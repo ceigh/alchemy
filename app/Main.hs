@@ -13,6 +13,6 @@ main :: IO ()
 -- main = simpleMain ui
 main = do
   g <- initGame
-  let g'  = addElementToFstCol 0 g
-      g'' = selectElement 0 g'
+  let g'  = addElementToDesk 0 g
+      g'' = selectElement    0 g'
   print g''

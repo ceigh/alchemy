@@ -2,7 +2,7 @@
 
 module Alchemy
   ( initGame
-  , addElementToFstCol
+  , addElementToDesk
   , selectElement
   ) where
 
@@ -27,11 +27,10 @@ data HistoryRecord = HistoryRecord
   } deriving Show
 
 data Game = Game
-  { _openedElements        :: [Element]
-  , _allElements           :: [Element]
-  , _fstColElements        :: [Element]
-  , _sndColElements        :: [Element]
-  , _fstColSelectedElement :: Maybe Element
+  { _allElements           :: [Element]
+  , _openedElements        :: [Element]
+  , _deskElements          :: [Element]
+  , _selectedElement       :: Maybe Element
   , _history               :: [HistoryRecord]
   } deriving Show
 
@@ -60,16 +59,16 @@ getElementsFromFile = do
 initGame :: IO Game
 initGame = do
   elements <- getElementsFromFile
-  return $ Game [] elements [] [] Nothing []
+  return $ Game elements [] [] Nothing []
 
 -- add to desk on col 1
-addElementToFstCol :: Int -> Game -> Game
-addElementToFstCol i g =
+addElementToDesk :: Int -> Game -> Game
+addElementToDesk i g =
   let element = (g ^. allElements) !! i
-  in g & fstColElements .~ (g ^. fstColElements ++ [element])
+  in g & deskElements .~ (g ^. deskElements ++ [element])
 
 -- select first element to merge
 selectElement :: Int -> Game -> Game
 selectElement i g =
-  let element = (g ^. fstColElements) !! i
-  in g & fstColSelectedElement ?~ element
+  let element = (g ^. deskElements) !! i
+  in g & selectedElement ?~ element
