@@ -13,6 +13,6 @@ main :: IO ()
 -- main = simpleMain ui
 main = do
   g <- initGame
-  print g
-  -- print $ addElementToFstCol (Element "a" "b" (Just ("a", "b"))) g
-  -- print $ selectElement (Element "a" "b" (Just ("a", "b"))) g
+  let g'  = addElementToFstCol 0 g
+      g'' = selectElement 0 g'
+  print g''

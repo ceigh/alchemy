@@ -4,7 +4,6 @@ module Alchemy
   ( initGame
   , addElementToFstCol
   , selectElement
-  -- , Element (..)
   ) where
 
 import qualified Data.ByteString.Char8 as BS
@@ -64,9 +63,13 @@ initGame = do
   return $ Game [] elements [] [] Nothing []
 
 -- add to desk on col 1
-addElementToFstCol :: Element -> Game -> Game
-addElementToFstCol e g = g & fstColElements .~ (g ^. fstColElements ++ [e])
+addElementToFstCol :: Int -> Game -> Game
+addElementToFstCol i g =
+  let element = (g ^. allElements) !! i
+  in g & fstColElements .~ (g ^. fstColElements ++ [element])
 
 -- select first element to merge
-selectElement :: Element -> Game -> Game
-selectElement e g = g & fstColSelectedElement ?~ e
+selectElement :: Int -> Game -> Game
+selectElement i g =
+  let element = (g ^. fstColElements) !! i
+  in g & fstColSelectedElement ?~ element
