@@ -22,6 +22,8 @@ dependencies:
 - yaml >= 0.11.5.0 && < 1
 - bytestring >= 0.10.10.1 && < 1
 - pretty-simple >= 3.2.3.0 && < 5
+- hspec >= 2.7.4 && < 3
+- QuickCheck >= 2.13.2 && < 3
 
 library:
   source-dirs: src
@@ -30,6 +32,17 @@ executables:
   alchemy-exe:
     main: Main.hs
     source-dirs: app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - alchemy
+
+tests:
+  alchemy-test:
+    main: Spec.hs
+    source-dirs: test
     ghc-options:
     - -threaded
     - -rtsopts

@@ -1,11 +1,6 @@
 {-# LANGUAGE TemplateHaskell, OverloadedStrings #-}
 
-module Alchemy
-  ( initGame
-  , addElementToDesk
-  , selectElement
-  , combineElements
-  ) where
+module Alchemy where
 
 import qualified Data.ByteString.Char8 as BS
 import Data.Maybe (fromJust, isNothing)

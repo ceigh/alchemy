@@ -33,9 +33,11 @@ library
   hs-source-dirs:
       src
   build-depends:
-      base >=4.7 && <5
+      QuickCheck >=2.13.2 && <3
+    , base >=4.7 && <5
     , brick >=0.52.1 && <1
     , bytestring >=0.10.10.1 && <1
+    , hspec >=2.7.4 && <3
     , microlens >=0.4.11.2 && <1
     , microlens-th >=0.4.3.6 && <1
     , pretty-simple >=3.2.3.0 && <5
@@ -50,10 +52,33 @@ executable alchemy-exe
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      alchemy
+      QuickCheck >=2.13.2 && <3
+    , alchemy
     , base >=4.7 && <5
     , brick >=0.52.1 && <1
     , bytestring >=0.10.10.1 && <1
+    , hspec >=2.7.4 && <3
+    , microlens >=0.4.11.2 && <1
+    , microlens-th >=0.4.3.6 && <1
+    , pretty-simple >=3.2.3.0 && <5
+    , yaml >=0.11.5.0 && <1
+  default-language: Haskell2010
+
+test-suite alchemy-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_alchemy
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      QuickCheck >=2.13.2 && <3
+    , alchemy
+    , base >=4.7 && <5
+    , brick >=0.52.1 && <1
+    , bytestring >=0.10.10.1 && <1
+    , hspec >=2.7.4 && <3
     , microlens >=0.4.11.2 && <1
     , microlens-th >=0.4.3.6 && <1
     , pretty-simple >=3.2.3.0 && <5
