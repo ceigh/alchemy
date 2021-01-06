@@ -80,19 +80,22 @@ combineElements :: Int -> Int -> Game -> Game
 combineElements i1 i2 g =
   let all         = g ^. allElements
       desk        = g ^. deskElements
+      oldHistory  = g ^. history
+
       e1          = desk !! i1
       e2          = desk !! i2
       newRoot     = (e1 ^. name, e2 ^. name)
       justNewRoot = Just newRoot
+
       matched     = filter (\e -> justNewRoot == (e ^. root)) all
       noMatches   = null matched
-      newDesk     = if noMatches
-                    then desk
+
+      newDesk     = if noMatches then desk
                     else filter (\e -> e `notElem` [e1, e2]) desk
-      oldHistory  = g ^. history
-      newHistory  = if noMatches
-                    then oldHistory
+
+      newHistory  = if noMatches then oldHistory
                     else oldHistory ++ [HistoryRecord newRoot (head matched)]
+
   in g & openedElements .~ (g ^. openedElements ++ matched)
        & deskElements   .~ newDesk ++ matched
        & history        .~ newHistory
