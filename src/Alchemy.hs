@@ -77,7 +77,9 @@ selectElement i g =
 
 -- try combine two elements on desk
 combineElements :: Int -> Int -> Game -> Game
-combineElements i1 i2 g =
+combineElements i1 i2 g
+  | i1 == i2 = error "Impossible to combine an element with itself"
+  | otherwise =
   let all         = g ^. allElements
       desk        = g ^. deskElements
       oldHistory  = g ^. history
