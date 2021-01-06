@@ -1,7 +1,10 @@
-import Test.Hspec
-import Test.QuickCheck
 import Control.Exception (evaluate)
+import Data.Maybe (fromJust)
 import Lens.Micro ((^.))
+import Test.Hspec
+-- import Text.Pretty.Simple (pPrint)
+import Test.QuickCheck
+
 import Alchemy
 
 main :: IO ()
@@ -14,21 +17,33 @@ main = hspec $ do
 
     it "adds elements to desk" $ do
       let g1 = addElementToDesk 0 g
-          e1 = head $ g1 ^. deskElements
+          e1 = last $ g1 ^. deskElements
           e2 = head $ g1 ^. allElements
       e1 `shouldBe` e2
 
-    {-
-    it "throws an exception if used with an empty list" $ do
-      evaluate (head []) `shouldThrow` anyException
-    -}
+    it "is not record history and change desk elements if combination\
+        \ is wrong" $ do
+      let g1           = combineElements 0 2 g -- air and fire
+          emptyHistory = null   $ g1 ^. history
+          onDeskOldNum = length $ g  ^. deskElements
+          onDeskNewNum = length $ g1 ^. deskElements
+      onDeskNewNum `shouldBe` onDeskOldNum
+      emptyHistory `shouldBe` True
 
-{-
-  let g1 = addElementToDesk 0 g    -- test adding
-      g2 = addElementToDesk 1 g1
-      g3 = combineElements  0 1 g2 -- test success combine
-      g4 = combineElements  0 1 g3 -- test fail combine
-      g5 = selectElement    2 g4   -- test selection
-      g6 = combineElements  0 1 g5 -- test fail combine
-      g7 = combineElements  0 0 g6 -- test error combine
--}
+    it "is record history, remove old pair and place new element on desk\
+        \ if combination is success" $ do
+      let g1           = combineElements 0 1 g -- air and earth
+          emptyHistory = null   $ g1 ^. history
+          onDeskOldNum = length $ g  ^. deskElements
+          onDeskNewNum = length $ g1 ^. deskElements
+      onDeskNewNum `shouldBe` onDeskOldNum - 1
+      emptyHistory `shouldBe` False
+
+    it "throws if combining with itself" $ do
+      -- air and air
+      evaluate (combineElements 0 0 g) `shouldThrow` anyException
+
+    it "select element" $ do
+      let g1       = selectElement 0 g
+          selected = fromJust $ g1 ^. selectedElement
+      selected `shouldBe` head (g ^. deskElements)

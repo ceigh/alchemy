@@ -1,6 +1,7 @@
 module Main where
 
 import Brick
+
 import Alchemy
 
 ui :: String -> Widget ()
