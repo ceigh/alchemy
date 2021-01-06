@@ -78,14 +78,21 @@ selectElement i g =
 -- try combine two elements on desk
 combineElements :: Int -> Int -> Game -> Game
 combineElements i1 i2 g =
-  let all       = g ^. allElements
-      desk      = g ^. deskElements
-      e1        = desk !! i1
-      e2        = desk !! i2
-      newRoot   = Just (e1 ^. name, e2 ^. name)
-      matched   = filter (\e -> newRoot == (e ^. root)) all
-      newDesk   = if null matched
-                  then desk
-                  else filter (\e -> e `notElem` [e1, e2]) desk
+  let all         = g ^. allElements
+      desk        = g ^. deskElements
+      e1          = desk !! i1
+      e2          = desk !! i2
+      newRoot     = (e1 ^. name, e2 ^. name)
+      justNewRoot = Just newRoot
+      matched     = filter (\e -> justNewRoot == (e ^. root)) all
+      noMatches   = null matched
+      newDesk     = if noMatches
+                    then desk
+                    else filter (\e -> e `notElem` [e1, e2]) desk
+      oldHistory  = g ^. history
+      newHistory  = if noMatches
+                    then oldHistory
+                    else oldHistory ++ [HistoryRecord newRoot (head matched)]
   in g & openedElements .~ (g ^. openedElements ++ matched)
        & deskElements   .~ newDesk ++ matched
+       & history        .~ newHistory
