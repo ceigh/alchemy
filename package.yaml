@@ -9,10 +9,10 @@ copyright: "2020 Artjom Löbsack"
 synopsis: Common alchemy game
 category: Games
 extra-source-files:
-- README
+- README.md
 - CHANGELOG
 
-description: See README at https://github.com/ceigh/alchemy
+description: See https://github.com/ceigh/alchemy
 
 dependencies:
 - base >= 4.7 && < 5
